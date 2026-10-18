@@ -51,7 +51,17 @@ int main() {
     list<string> myList;
     set<string> mySet;
     vector<string> myVec;
-    cout << "Operation Races"
+    cout << "           Vector    List   Set" << endl;
+    cout << "Read time:  " << readTime(myVec)  << "    " << readTime(myList) << "    " << readTime(mySet) << endl;
+    list<string> sortList = myList;
+    vector<string> sortVec = myVec;
+    cout << "Sort time:  " << sortTime(sortVec) << "    " << sortTime(sortList) << "   " << -1 <<  endl;
+    list<string> insertList = myList;
+    vector<string> insertVec = myVec;
+    set<string> insertSet = mySet;
+    cout << "Insert time: " << insertTime(insertVec)  << "    " << readTime(myList) << "    " << readTime(mySet) << endl;
+    list<string> sortList = myList;
+    cout << "Delete time:" << endl;
 
     return 0;
 }
