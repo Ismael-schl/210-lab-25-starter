@@ -10,6 +10,7 @@
 using namespace std;
 using namespace chrono;
 const int NUM_CODES = 20000;
+const string S = "TEST_CODE";
 
 //function protypes for functions that add elements for every container type
 void add_item(vector<string> &v, const string &s);
@@ -28,7 +29,15 @@ void sort_c(list<string> &l);
 template <typename Container>
 int sortTime(Container &c);
 
-//
+//function protypes for indivual middle insertion functions
+void insert_c(vector<string> &v);
+void insert_c(list<string> &l);
+void insert_c(set<string> &se);
+
+//data type indepent timer for insertion
+template <typename Container>
+int insertTime(Container &c);
+
 int main() {
     list<string> myList;
     set<string> mySet;
@@ -102,3 +111,30 @@ int sortTime(Container &c) {
     auto duration = duration_cast<nanoseconds>(end-start);
     return (int)duration.count();
 }
+
+//functions for individual middle insertion
+void insert_c(vector<string> &v) {
+    v.insert(v.begin() + v.size()/2, S);
+}
+void insert_c(list<string> &l) {
+    auto it = l.begin();
+    advance(it, l.size()/2);
+    l.insert(it, S);
+}
+void insert_c(set<string> &se) {
+    se.insert(S);
+}
+
+
+template <typename Container>
+int insertTime(Container &c) {
+    ifstream fin("codes.txt");
+    string line;
+    auto start = high_resolution_clock::now()
+    sort_c(c);
+    auto end = high_resolution_clock::now();
+    fin.close();
+    auto duration = duration_cast<nanoseconds>(end-start);
+    return (int)duration.count();
+}
+
