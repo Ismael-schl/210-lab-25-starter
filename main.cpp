@@ -6,26 +6,24 @@
 #include <vector>
 #include <fstream>
 #include <string>
-using namespace std;
 
+using namespace std;
+using namespace chrono;
 const int NUM_CODES = 20000;
 
 //function protypes for functions that add elements for every container type
 void add_item(vector<string> &v, const string &s);
-void add_item(list<string> &v, const string &s);
-void add_item(set<string> &v, const string &s);
+void add_item(list<string> &l, const string &s);
+void add_item(set<string> &se, const string &s);
 
-int readTime()
+//read time calculator function that works for all three data types
+template <typename Container>
+int readTime(Container &c);
 
 int main() {
     list<string> myList;
     set<string> mySet;
     vector<string> myVec;
-    ifstream fin("codes.txt");
-    string line;
-    while (getline(fin, line)) {
-        myList.push_back(line);
-    }
     
 
     return 0;
@@ -41,10 +39,26 @@ void add_item(vector<string> &v, const string &s) {
     v.push_back(s);
 }
 
-void add_item(vector<string> &v, const string &s) {
-    v.push_back(s);
+void add_item(list<string> &l, const string &s) {
+    l.push_back(s);
 }
 
-void add_item(vector<string> &v, const string &s) {
-    v.push_back(s);
+void add_item(set<string> &se, const string &s) {
+    se.insert(s);
 }
+
+//read time calculator function that works for all three data types
+template <typename Container>
+int readTime(Container &c) {
+    ifstream fin("codes.txt");
+    string line;
+    auto start = high_resolution_clock::now()
+    while (getline(fin, line)) {
+        add_item(c,line);
+    }
+    auto end = high_resolution_clock::now();
+    fin.close();
+    auto duration = duration_cast<nanoseconds>(end-start);
+    return (int)duration.count();
+}
+
