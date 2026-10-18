@@ -38,11 +38,20 @@ void insert_c(set<string> &se);
 template <typename Container>
 int insertTime(Container &c);
 
+//function prototypes for middle element deletion for each type
+void delete_c(vector<string> &v);
+void delete_c(list<string> &l);
+void delete_c(set<string> &se);
+
+//middle element deletion timer prototype, data type independent
+template <typename Container>
+int deleteTime(Container &c);
+
 int main() {
     list<string> myList;
     set<string> mySet;
     vector<string> myVec;
-    
+    cout << "Operation Races"
 
     return 0;
 }
@@ -125,16 +134,43 @@ void insert_c(set<string> &se) {
     se.insert(S);
 }
 
-
+//data type indepent timer for insertion
 template <typename Container>
 int insertTime(Container &c) {
     ifstream fin("codes.txt");
     string line;
     auto start = high_resolution_clock::now()
-    sort_c(c);
+    insert_c(c);
     auto end = high_resolution_clock::now();
     fin.close();
     auto duration = duration_cast<nanoseconds>(end-start);
     return (int)duration.count();
 }
 
+//functions for middle element deletion for each type
+void delete_c(vector<string> &v) {
+    v.erase(v.begin()+v.size()/2);
+}
+void delete_c(list<string> &l) {
+    auto it = l.begin();
+    advance(it, l.size()/2);
+    l.erase(it);
+}
+void delete_c(set<string> &se) { 
+    auto it = se.begin();
+    advance(it, se.size()/2);
+    se.erase(it);
+}
+
+//middle element deletion timer, data type independent
+template <typename Container>
+int deleteTime(Container &c) {
+    ifstream fin("codes.txt");
+    string line;
+    auto start = high_resolution_clock::now()
+    delete_c(c);
+    auto end = high_resolution_clock::now();
+    fin.close();
+    auto duration = duration_cast<nanoseconds>(end-start);
+    return (int)duration.count();
+}
