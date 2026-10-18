@@ -20,6 +20,14 @@ void add_item(set<string> &se, const string &s);
 template <typename Container>
 int readTime(Container &c);
 
+//sort functions for vectors and lists, respectively
+void sort_c(vector<string> &v);
+void sort_c(list<string> &l);
+
+//sort time function that works for vectors and lists
+template <typename Container>
+Container sortTime(Container &c);
+
 int main() {
     list<string> myList;
     set<string> mySet;
@@ -62,3 +70,16 @@ int readTime(Container &c) {
     return (int)duration.count();
 }
 
+//sort functions for vectors and lists, respectively
+void sort_c(vector<string> &v) {
+
+}
+void sort_c(list<string> &l) {
+    l.sort();
+}
+
+//sort time function that works for vectors and lists
+template <typename Container>
+Container sortTime(Container &c) {
+
+}
