@@ -26,8 +26,9 @@ void sort_c(list<string> &l);
 
 //sort time function that works for vectors and lists
 template <typename Container>
-Container sortTime(Container &c);
+int sortTime(Container &c);
 
+//
 int main() {
     list<string> myList;
     set<string> mySet;
@@ -71,8 +72,19 @@ int readTime(Container &c) {
 }
 
 //sort functions for vectors and lists, respectively
+//selection sort borrowed from zybooks
 void sort_c(vector<string> &v) {
-
+    for (int i = 0; i < (v.size()-1); i++) {
+        int idxSmallest = i;
+        for (int j = i+1; j < v.size(); j++) {
+            if (v[j] < v[idxSmallest]) {
+                idxSmallest = j;
+            }
+        }
+        string temp = v[i];
+        v[i] = v[idxSmallest];
+        v[idxSmallest] = temp;
+    }
 }
 void sort_c(list<string> &l) {
     l.sort();
@@ -80,6 +92,13 @@ void sort_c(list<string> &l) {
 
 //sort time function that works for vectors and lists
 template <typename Container>
-Container sortTime(Container &c) {
-
+int sortTime(Container &c) {
+    ifstream fin("codes.txt");
+    string line;
+    auto start = high_resolution_clock::now()
+    sort_c(c);
+    auto end = high_resolution_clock::now();
+    fin.close();
+    auto duration = duration_cast<nanoseconds>(end-start);
+    return (int)duration.count();
 }
