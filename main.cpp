@@ -10,7 +10,6 @@
 
 using namespace std;
 using namespace chrono;
-const int NUM_CODES = 20000;
 const string S = "TEST_CODE";
 
 //function protypes for functions that add elements for every container type
@@ -52,31 +51,27 @@ int main() {
     list<string> myList;
     set<string> mySet;
     vector<string> myVec;
+
+    //Output table for timers
     const int W1 = 12;
     const int W = 14;
-    cout << left << setw(W1) << "" << right << setw(W) << "Vector" << setw(W) << "List" << setw(W)
-    cout << "Read time:  " << readTime(myVec)  << "    " << readTime(myList) << "    " << readTime(mySet) << endl;
+    cout << left << setw(W1) << "" << right << setw(W) << "Vector" << setw(W) << "List" << setw(W) << "Set" << endl;
+    cout << left << setw(W1) << "Read time:" << right << setw(W) << readTime(myVec) << setw(W) << readTime(myList) << setw(W) << readTime(mySet) << endl;
     list<string> sortList = myList;
     vector<string> sortVec = myVec;
-    cout << "Sort time:  " << sortTime(sortVec) << "    " << sortTime(sortList) << "   " << -1 <<  endl;
+    cout << left << setw(W1) << "Sort time:" << right << setw(W) << sortTime(sortVec) << setw(W) << sortTime(sortList) << setw(W) << -1 << endl;
     list<string> insertList = myList;
     vector<string> insertVec = myVec;
     set<string> insertSet = mySet;
-    cout << "Insert time: " << insertTime(insertVec)  << "    " << insertTime(insertList) << "    " << insertTime(insertSet) << endl;
+    cout << left << setw(W1) << "Insert time:" << right << setw(W) << insertTime(insertVec) << setw(W) << insertTime(insertList) << setw(W) << insertTime(insertSet) << endl;
     list<string> deleteList = myList;
     vector<string> deleteVec = myVec;
     set<string> deleteSet = mySet;
-     cout << "Delete time: " << deleteTime(deleteVec)  << "    " << deleteTime(deleteList) << "    " << deleteTime(deleteSet) << endl;
-
+    cout << left << setw(W1) << "Delete time:" << right << setw(W) << deleteTime(deleteVec) << setw(W) << deleteTime(deleteList) << setw(W) << deleteTime(deleteSet) << endl;
     return 0;
 }
 
-/* syntax examples:
-auto start = high_resolution_clock::now()
-auto end = high_resolution_clock::now()
-auto duration = duration_cast<milliseconds>(end - start)
-duration.count() references elapsed milliseconds
-*/
+//functions that add elements for every container type
 void add_item(vector<string> &v, const string &s) {
     v.push_back(s);
 }
@@ -105,6 +100,7 @@ int readTime(Container &c) {
 }
 
 //sort functions for vectors and lists, respectively
+
 //selection sort borrowed from zybooks
 void sort_c(vector<string> &v) {
     for (int i = 0; i < (v.size()-1); i++) {
