@@ -6,6 +6,7 @@
 #include <vector>
 #include <fstream>
 #include <string>
+#include <iomanip>
 
 using namespace std;
 using namespace chrono;
@@ -51,7 +52,9 @@ int main() {
     list<string> myList;
     set<string> mySet;
     vector<string> myVec;
-    cout << "           Vector    List   Set" << endl;
+    const int W1 = 12;
+    const int W = 14;
+    cout << left << setw(W1) << "" << right << setw(W) << "Vector" << setw(W) << "List" << setw(W)
     cout << "Read time:  " << readTime(myVec)  << "    " << readTime(myList) << "    " << readTime(mySet) << endl;
     list<string> sortList = myList;
     vector<string> sortVec = myVec;
@@ -59,9 +62,11 @@ int main() {
     list<string> insertList = myList;
     vector<string> insertVec = myVec;
     set<string> insertSet = mySet;
-    cout << "Insert time: " << insertTime(insertVec)  << "    " << readTime(myList) << "    " << readTime(mySet) << endl;
-    list<string> sortList = myList;
-    cout << "Delete time:" << endl;
+    cout << "Insert time: " << insertTime(insertVec)  << "    " << insertTime(insertList) << "    " << insertTime(insertSet) << endl;
+    list<string> deleteList = myList;
+    vector<string> deleteVec = myVec;
+    set<string> deleteSet = mySet;
+     cout << "Delete time: " << deleteTime(deleteVec)  << "    " << deleteTime(deleteList) << "    " << deleteTime(deleteSet) << endl;
 
     return 0;
 }
@@ -89,7 +94,7 @@ template <typename Container>
 int readTime(Container &c) {
     ifstream fin("codes.txt");
     string line;
-    auto start = high_resolution_clock::now()
+    auto start = high_resolution_clock::now();
     while (getline(fin, line)) {
         add_item(c,line);
     }
@@ -123,7 +128,7 @@ template <typename Container>
 int sortTime(Container &c) {
     ifstream fin("codes.txt");
     string line;
-    auto start = high_resolution_clock::now()
+    auto start = high_resolution_clock::now();
     sort_c(c);
     auto end = high_resolution_clock::now();
     fin.close();
@@ -149,7 +154,7 @@ template <typename Container>
 int insertTime(Container &c) {
     ifstream fin("codes.txt");
     string line;
-    auto start = high_resolution_clock::now()
+    auto start = high_resolution_clock::now();
     insert_c(c);
     auto end = high_resolution_clock::now();
     fin.close();
@@ -177,7 +182,7 @@ template <typename Container>
 int deleteTime(Container &c) {
     ifstream fin("codes.txt");
     string line;
-    auto start = high_resolution_clock::now()
+    auto start = high_resolution_clock::now();
     delete_c(c);
     auto end = high_resolution_clock::now();
     fin.close();
